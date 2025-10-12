@@ -5,7 +5,7 @@ from django.db import models
 from django.db import models
 
 class Product(models.Model):
-    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, unique=True,  max_length=36,default=uuid.uuid4, editable=False)
     code = models.CharField(max_length=50, unique=True)
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
@@ -14,7 +14,7 @@ class Product(models.Model):
         return f'{self.code} - {self.name}'
 
 class BomItem(models.Model):
-    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, unique=True, max_length=36, default=uuid.uuid4, editable=False)
     product = models.ForeignKey(Product, related_name='bom_items', on_delete=models.CASCADE)
     component = models.ForeignKey(Product, related_name='used_in_boms', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)

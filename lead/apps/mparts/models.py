@@ -3,7 +3,7 @@ import uuid
 from django.db import models
 
 class Mpart(models.Model):
-    id  = models.UUIDField(primary_key=True, unique=True,default=uuid.uuid4,editable=False)
+    id = models.UUIDField(primary_key=True, unique=True, max_length=36,default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
     publication_date = models.DateField()
@@ -14,7 +14,7 @@ class Mpart(models.Model):
         return self.title
 
 class Files(models.Model):
-    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, unique=True,  max_length=36,default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200)
     created_time = models.DateField(auto_now_add=True)
     mpart = models.ForeignKey(
