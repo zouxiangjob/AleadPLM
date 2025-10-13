@@ -1,7 +1,16 @@
 from rest_framework import serializers
 from django.db import transaction
 from .models import Product, BomItem
+from ..unit_configuration.fields import FlexibleUUIDField
 
+
+class BomItemSerializer(serializers.ModelSerializer):
+    parent_component = FlexibleUUIDField()
+    product = FlexibleUUIDField()
+    component = FlexibleUUIDField()
+    class Meta:
+        model = BomItem
+        fields = '__all__'
 
 class BomItemInputSerializer(serializers.Serializer):
     component = serializers.UUIDField(help_text="组件 Product 的 UUID")
