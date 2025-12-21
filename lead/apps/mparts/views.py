@@ -18,3 +18,5 @@ class MpartViewSet(viewsets.ModelViewSet):
         file_obj = "fileobj"
         return Response({"status": "success", "filename": file_obj})
 
+
+

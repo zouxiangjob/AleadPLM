@@ -8,8 +8,10 @@ class FileSerializer(serializers.ModelSerializer):
         fields = ['name', 'attachment']
         read_only_fields = ['id']
         extra_kwargs = {
-            'attachment': {'write_only': True}  # 文件字段只用于输入
+            'attachment': {'write_only': True}
         }
+
+
 class MpartsSerializer(serializers.ModelSerializer):
     files = FileSerializer(many=True,required=False,read_only=True)
 
