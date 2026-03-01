@@ -37,12 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'lead.apps.mparts',
-    'lead.apps.bom',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
     'drf_spectacular',
+
+    # 业务APP
+    'lead.apps.production',
 ]
 
 
@@ -133,9 +134,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = 'zh-hans' # 中文
+TIME_ZONE = 'Asia/Shanghai' # 中国时区
 
 USE_I18N = True
 

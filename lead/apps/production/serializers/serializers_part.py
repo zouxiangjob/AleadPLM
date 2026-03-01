@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Mpart, Files
+
+from lead.apps.production.models import Files, Mpart
 
 
 class FileSerializer(serializers.ModelSerializer):

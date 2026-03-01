@@ -3,7 +3,7 @@ from decimal import Decimal
 
 from django.db import transaction
 from rest_framework import serializers
-from .models import Mpart, BomItem
+from lead.apps.production.models import Mpart, BomItem
 
 
 class BomItemSerializer(serializers.ModelSerializer):

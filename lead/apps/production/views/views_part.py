@@ -1,7 +1,8 @@
-from rest_framework import generics, viewsets
+from rest_framework import viewsets
 from rest_framework.response import Response
-from .models import Mpart
-from .serializers import MpartsSerializer
+
+from lead.apps.production.models import Mpart
+from lead.apps.production.serializers.serializers_part import MpartsSerializer
 
 
 class MpartViewSet(viewsets.ModelViewSet):
