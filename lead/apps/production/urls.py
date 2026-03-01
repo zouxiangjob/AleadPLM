@@ -1,10 +1,10 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from lead.apps.production.views.views_bom import MpartBomViewSet, BomItemViewSet
+from lead.apps.production.views.views_bom import MpartViewSet, BomItemViewSet
 
 router = DefaultRouter()
 
-router.register(r'mpart', MpartBomViewSet, basename='mpart')
+router.register(r'mpart', MpartViewSet, basename='mpart')
 router.register(r'bom', BomItemViewSet, basename='bom')
 
 

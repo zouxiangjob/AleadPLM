@@ -8,7 +8,7 @@ services:
       - "5432:5432"
     volumes:
       # 注意：Windows 路径建议使用 / 而不是 \，且不要加 d: 前缀，直接从 D:/ 开始更稳妥
-      - D:/WSL/postgres_data:/var/lib/postgresql
+      - D:/WSL/postgres_data:/var/lib/postgresql/data
 
   cache:
     image: redis:latest

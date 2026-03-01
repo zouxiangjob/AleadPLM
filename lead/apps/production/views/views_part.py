@@ -2,12 +2,12 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 
 from lead.apps.production.models import Mpart
-from lead.apps.production.serializers.serializers_part import MpartsSerializer
+from lead.apps.production.serializers.serializers_part import MpartSerializer
 
 
 class MpartViewSet(viewsets.ModelViewSet):
     queryset = Mpart.objects.all()
-    serializer_class = MpartsSerializer
+    serializer_class = MpartSerializer
 
     def perform_create(self, serializer):
         print("perform_create")
