@@ -3,7 +3,6 @@ from rest_framework import viewsets
 from lead.apps.production.models import Mpart, BomItem
 from lead.apps.production.serializers.serializers_bom import BomItemSerializer
 from lead.apps.production.serializers.serializers_part import MpartSerializer
-from lead.apps.unit.swagger_params import uuid_path_param, bom_filter_params, pagination_params, filter_params
 
 
 class MpartViewSet(viewsets.ModelViewSet):
