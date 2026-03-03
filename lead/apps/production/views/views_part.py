@@ -8,9 +8,8 @@ from lead.apps.production.serializers.serializers_part import MpartSerializer
 
 
 class MpartFilter(filters.FilterSet):
-    # 明确指定 field_name 指向模型中的 'name' 字段
-    name = filters.CharFilter(field_name='name', lookup_expr='icontains')
-
+    # 如果想模糊查询，用 lookup_expr='icontains'
+    name = filters.CharFilter(lookup_expr='icontains')
     class Meta:
         model = Mpart
         fields = ['name']
@@ -24,17 +23,8 @@ class MpartViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_class = MpartFilter
 
-
     def perform_create(self, serializer):
         print("perform_create")
         serializer.save()
 
-
-class FilterListView(generics.ListAPIView):
-    queryset = Mpart.objects.all()
-    serializer_class = MpartSerializer
-    filter_backends = [DjangoFilterBackend]
-
-    # 绑定上面定义的类
-    filterset_class = MpartFilter
 

@@ -5,11 +5,6 @@ from lead.apps.production.serializers.serializers_bom import BomItemSerializer
 from lead.apps.production.serializers.serializers_part import MpartSerializer
 
 
-class MpartViewSet(viewsets.ModelViewSet):
-    queryset = Mpart.objects.all().order_by('id')
-    serializer_class = MpartSerializer
-
-    filterset_fields = []
 
 class BomItemViewSet(viewsets.ModelViewSet):
     queryset = BomItem.objects.select_related('pid')

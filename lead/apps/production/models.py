@@ -10,7 +10,7 @@ class Mpart(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=1)
     file = models.FileField(upload_to='files/', blank=False,null=True)
     created_time = models.DateField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_time = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -19,7 +19,7 @@ class Files(models.Model):
     id = models.CharField(primary_key=True, unique=True,default=shortuuid.uuid, editable=False)
     name = models.CharField(max_length=200)
     created_time = models.DateField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_time = models.DateTimeField(auto_now=True)
     mpart = models.ForeignKey(
         Mpart,
         on_delete=models.CASCADE,
@@ -44,7 +44,7 @@ class BomItem(models.Model):
         default=Decimal('0.00')
     )
     created_time = models.DateField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_time = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f'{self.pid} -> {self.cid} x {self.quantity}'
