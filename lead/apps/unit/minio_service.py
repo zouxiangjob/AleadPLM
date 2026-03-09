@@ -29,7 +29,6 @@ class Files(models.Model):
 # --- 2. MinIO 公共服务类 ---
 class MinioHandler:
     """封装 MinIO 公共操作"""
-
     def __init__(self):
         # 建议在 settings 中设置 MINIO_SECURE (True/False)
         self.client = Minio(
@@ -60,7 +59,6 @@ minio_service = MinioHandler()
 # --- 3. API 视图 ---
 class MinioUploadActionView(APIView):
     """步骤 1: 申请上传"""
-
     def post(self, request):
         file_name = request.data.get('file_name')
         file_size = request.data.get('file_size')
