@@ -79,8 +79,12 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
+import { useRoute } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import api from '../api/index.js'
+
+// 路由
+const route = useRoute()
 
 // 状态管理
 const loading = ref(false)
@@ -233,24 +237,29 @@ const transformBomItem = (item) => ({
 async function loadBom() {
   loading.value = true
   try {
-    const id = '0cefe4fda00c41dd89213efb978b20b3' // 这里可以替换为实际的产品ID
-    const { data } = await api.get('bom/products/', { params: { id: product.value?.id } })
+    // 从路由参数获取产品ID，或使用默认值
+    const productId = route.query.productId || route.params.productId
+    if (!productId) {
+      ElMessage.warning('请提供产品ID')
+      loading.value = false
+      return
+    }
+    const { data } = await api.get(`mpart/${productId}/`)
     
-    if (!data.results?.length) {
+    if (!data) {
       ElMessage.warning('没有找到任何产品数据')
       return
     }
 
-    const firstProduct = data.results[0]
     product.value = {
-      id: firstProduct.id,
-      code: firstProduct.code,
-      name: firstProduct.name,
-      description: firstProduct.description
+      id: data.id,
+      code: data.code,
+      name: data.name,
+      description: data.description || ''
     }
 
     // 处理 BOM 项
-    bomItems.value = (firstProduct.bom_items || []).map(transformBomItem)
+    bomItems.value = (data.bom_items || []).map(transformBomItem)
 
   } catch (error) {
     handleError(error, '加载失败')

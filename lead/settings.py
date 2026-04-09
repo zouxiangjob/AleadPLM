@@ -9,23 +9,29 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-import os
 from pathlib import Path
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+import os
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+# Load environment variables from a .env file (optional).
+# This uses a dynamic import to avoid hard import-time dependency if python-dotenv is not installed.
+import importlib
+try:
+    dotenv = importlib.import_module('dotenv')
+    load_dotenv = getattr(dotenv, 'load_dotenv', None)
+    if callable(load_dotenv):
+        load_dotenv(BASE_DIR / '.env')
+except Exception:
+    # If python-dotenv is not installed, assume environment variables are provided externally.
+    pass
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-2v0+d^ko=!rdesf3d^l*%5@sqsc4fe#%g#p!-)ep1#u715gc$1'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-2v0+d^ko=!rdesf3d^l*%5@sqsc4fe#%g#p!-)ep1#u715gc$1')
 
 
 # Application definition
@@ -138,6 +144,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
+DEBUG = True
 
 LANGUAGE_CODE = 'zh-hans' # 中文
 TIME_ZONE = 'Asia/Shanghai' # 中国时区
@@ -152,12 +159,23 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+
+# MinIO configuration: prefer explicit env vars; keep old MINIO_CONF as fallback for backward compatibility
+MINIO_ENDPOINT = os.getenv('MINIO_ENDPOINT')
+MINIO_ACCESS_KEY = os.getenv('MINIO_ACCESS_KEY')
+MINIO_SECRET_KEY = os.getenv('MINIO_SECRET_KEY')
+MINIO_BUCKET_NAME = os.getenv('MINIO_BUCKET_NAME')
+MINIO_USE_HTTPS = os.getenv('MINIO_USE_HTTPS', 'False').lower() in ('1', 'true', 'yes')
+MINIO_UPLOAD_EXPIRES_MINUTES = int(os.getenv('MINIO_UPLOAD_EXPIRES_MINUTES', '15'))
+MINIO_OBJECT_PREFIX = os.getenv('MINIO_OBJECT_PREFIX', 'plm/')
+
+# Backwards compatible MINIO_CONF dict (if code references it elsewhere)
 MINIO_CONF = {
-    'endpoint': 'localhost:9000',
-    'access_key': 'your-access-key',
-    'secret_key': 'your-secret-key',
-    'secure': False,  # 如果是 https 则为 True
-    'bucket_name': 'my-bucket',
+    'endpoint': MINIO_ENDPOINT or 'localhost:9000',
+    'access_key': MINIO_ACCESS_KEY or 'your-access-key',
+    'secret_key': MINIO_SECRET_KEY or 'your-secret-key',
+    'secure': MINIO_USE_HTTPS,
+    'bucket_name': MINIO_BUCKET_NAME or 'my-bucket',
 }
 
 

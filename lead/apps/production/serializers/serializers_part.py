@@ -75,14 +75,14 @@ class MpartSerializer(serializers.ModelSerializer):
 
         # 1. 处理文件更新（采用覆盖式：删除旧的，创建新的）
         if files_data is not None:
-            instance.files_set.all().delete()  # 假设反向关联名是 files_set
+            instance.files.all().delete()
             Files.objects.bulk_create([
                 Files(mpart=instance, **item) for item in files_data
             ])
 
         # 2. 处理 BOM 更新
         if bom_items is not None:
-            instance.bom_set.all().delete()
+            instance.pid.all().delete()
             mparts_map = self._validate_and_get_cids(bom_items)
             BomItem.objects.bulk_create([
                 BomItem(pid=instance, cid=mparts_map[item['cid']], quantity=item.get('quantity', 1))
