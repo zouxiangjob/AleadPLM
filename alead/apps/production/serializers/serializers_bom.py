@@ -1,9 +1,7 @@
-import re
 from decimal import Decimal
 
-from django.db import transaction
 from rest_framework import serializers
-from lead.apps.production.models import Mpart, BomItem
+from lead.apps.production.models import BomItem
 
 
 class BomItemSerializer(serializers.ModelSerializer):

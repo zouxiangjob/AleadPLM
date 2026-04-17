@@ -33,7 +33,7 @@ def get_files_model():
     设计意图：避免在模块导入阶段因为模型不可用而导致整个模块崩溃（例如在某些测试或外部脚本运行时）。
     """
     try:
-        return apps.get_model('lead.apps.production', 'Files')
+        return apps.get_model('alead.apps.production', 'Files')
     except Exception:
         # 回退实现：仅提供模块中使用的最小 API（objects.create/objects.get），并抛出可识别的异常。
         class _Fallback:

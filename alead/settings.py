@@ -55,8 +55,8 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -88,6 +88,7 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
+
 
 ROOT_URLCONF = 'lead.urls'
 CORS_ALLOW_ALL_ORIGINS = True
@@ -168,19 +169,6 @@ MINIO_BUCKET_NAME = os.getenv('MINIO_BUCKET_NAME')
 MINIO_USE_HTTPS = os.getenv('MINIO_USE_HTTPS', 'False').lower() in ('1', 'true', 'yes')
 MINIO_UPLOAD_EXPIRES_MINUTES = int(os.getenv('MINIO_UPLOAD_EXPIRES_MINUTES', '15'))
 MINIO_OBJECT_PREFIX = os.getenv('MINIO_OBJECT_PREFIX', 'plm/')
-
-# Backwards compatible MINIO_CONF dict (if code references it elsewhere)
-MINIO_CONF = {
-    'endpoint': MINIO_ENDPOINT or 'localhost:9000',
-    'access_key': MINIO_ACCESS_KEY or 'your-access-key',
-    'secret_key': MINIO_SECRET_KEY or 'your-secret-key',
-    'secure': MINIO_USE_HTTPS,
-    'bucket_name': MINIO_BUCKET_NAME or 'my-bucket',
-}
-
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

@@ -23,7 +23,7 @@ class MinioConnectionTest(SimpleTestCase):
         })
 
         # 延迟导入 MinioConfig 和 MinioHandler，确保环境变量已生效
-        from lead.apps.production.unit.minio_service import MinioConfig, MinioHandler
+        from lead.apps.production.services.minio_service import MinioConfig, MinioHandler
 
         try:
             # 初始化 MinIO 配置和处理器
@@ -55,7 +55,7 @@ class MinioConnectionTest(SimpleTestCase):
         # 导入必要的模块
         import io
         import uuid
-        from lead.apps.production.unit.minio_service import MinioConfig, MinioHandler
+        from lead.apps.production.services.minio_service import MinioConfig, MinioHandler
 
         try:
             # 初始化 MinIO 配置和处理器
@@ -69,7 +69,7 @@ class MinioConnectionTest(SimpleTestCase):
                 client.make_bucket(bucket)
 
             # 准备测试数据
-            data = b"unit-test-minio-upload-download"  # 测试文件内容
+            data = b"services-test-minio-upload-download"  # 测试文件内容
             object_name = f"{handler.config.OBJECT_PREFIX}test-{uuid.uuid4().hex}.bin"  # 生成唯一的对象名称
             data_io = io.BytesIO(data)  # 将数据包装为 BytesIO 对象
 

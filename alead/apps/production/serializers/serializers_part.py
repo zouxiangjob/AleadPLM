@@ -2,7 +2,6 @@ from django.db import transaction
 from rest_framework import serializers
 
 from lead.apps.production.models import Files, Mpart, BomItem
-from lead.apps.production.serializers.serializers_bom import BomItemSerializer
 
 
 class FileSerializer(serializers.ModelSerializer):

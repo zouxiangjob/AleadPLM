@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('id', models.CharField(default=shortuuid.main.ShortUUID.uuid, editable=False, primary_key=True, serialize=False, unique=True)),
                 ('code', models.CharField(max_length=200)),
                 ('name', models.CharField(max_length=200)),
-                ('unit', models.CharField(max_length=200)),
+                ('services', models.CharField(max_length=200)),
                 ('price', models.DecimalField(decimal_places=1, max_digits=5)),
                 ('created_time', models.DateField(auto_now_add=True)),
                 ('file', models.FileField(null=True, upload_to='files/')),

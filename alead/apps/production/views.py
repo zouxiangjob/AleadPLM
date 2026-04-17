@@ -1,9 +1,6 @@
-from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework import viewsets
-from lead.apps.production.models import Mpart, BomItem
-from lead.apps.production.serializers.serializers_bom import BomItemSerializer
-from lead.apps.production.serializers.serializers_part import MpartSerializer
-
+from alead.apps.production.models import BomItem
+from alead.apps.production.serializers.serializers_bom import BomItemSerializer
 
 
 class BomItemViewSet(viewsets.ModelViewSet):
